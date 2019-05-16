@@ -119,7 +119,7 @@ export function handleTransfer(event: Transfer): void {
   let transferCounter = TransferCounter.load('singleton')
   if (transferCounter == null) {
     transferCounter = new TransferCounter('singleton')
-    transferCounter.count = BigInt.fromI32(0)
+    transferCounter.count = 0
     transferCounter.totalTransferred = BigInt.fromI32(0)
   }
   transferCounter.count = transferCounter.count + 1

@@ -22,12 +22,15 @@ type MinterCounter @entity {
   count: Int!
 }
 
-type TransactionCounter @entity {
+type TransferCounter @entity {
   id: ID!
   count: Int!
+  totalTransferred: BigInt!
 }
 
 type TotalSupply @entity {
   id: ID!
   supply: BigInt!
+  minted: BigInt!
+  burned: BigInt!
 }
