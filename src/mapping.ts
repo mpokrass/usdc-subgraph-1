@@ -4,7 +4,7 @@ import {
   Minter,
   UserCounter,
   MinterCounter,
-  TransactionCounter,
+  TransferCounter,
   TotalSupply
 } from './types/schema'
 import { BigInt } from '@graphprotocol/graph-ts'
@@ -36,8 +36,11 @@ export function handleMint(event: Mint): void {
   if (totalSupply == null) {
     totalSupply = new TotalSupply('singleton')
     totalSupply.supply = BigInt.fromI32(0)
+    totalSupply.minted = BigInt.fromI32(0)
+    totalSupply.burned = BigInt.fromI32(0)
   }
   totalSupply.supply = totalSupply.supply + event.params.amount
+  totalSupply.minted = totalSupply.minted + event.params.amount
   totalSupply.save()
   totalSupply.id = day.toString()
   totalSupply.save()
@@ -71,8 +74,11 @@ export function handleBurn(event: Burn): void {
   if (totalSupply == null) {
     totalSupply = new TotalSupply('singleton')
     totalSupply.supply = BigInt.fromI32(0)
+    totalSupply.minted = BigInt.fromI32(0)
+    totalSupply.burned = BigInt.fromI32(0)
   }
   totalSupply.supply = totalSupply.supply - event.params.amount
+  totalSupply.burned = totalSupply.burned + event.params.amount
   totalSupply.save()
   totalSupply.id = day.toString()
   totalSupply.save()
@@ -109,17 +115,18 @@ export function handleTransfer(event: Transfer): void {
   userTo.transactionCount = userTo.transactionCount + 1
   userTo.save()
 
-  // Transaction counter total and historical
-  let transactionCounter = TransactionCounter.load('singleton')
-  if (transactionCounter == null) {
-    transactionCounter = new TransactionCounter('singleton')
-    transactionCounter.count = 1
-  } else {
-    transactionCounter.count = transactionCounter.count + 1
+  // Transfer counter total and historical
+  let transferCounter = TransferCounter.load('singleton')
+  if (transferCounter == null) {
+    transferCounter = new TransferCounter('singleton')
+    transferCounter.count = BigInt.fromI32(0)
+    transferCounter.totalTransferred = BigInt.fromI32(0)
   }
-  transactionCounter.save()
-  transactionCounter.id = day.toString()
-  transactionCounter.save()
+  transferCounter.count = transferCounter.count + 1
+  transferCounter.totalTransferred = transferCounter.totalTransferred + event.params.value
+  transferCounter.save()
+  transferCounter.id = day.toString()
+  transferCounter.save()
 }
 
 function newUser(id: string, address: string): User {
