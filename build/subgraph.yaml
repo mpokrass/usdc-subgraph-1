@@ -1,8 +1,8 @@
 specVersion: 0.0.1
 description: USDC
-repository: https://github.com/mpokrass/usdc-subgraph
+repository: 'https://github.com/mpokrass/usdc-subgraph'
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: FiatTokenV1
@@ -23,12 +23,12 @@ dataSources:
         - TotalSupply
       abis:
         - name: FiatTokenV1
-          file: ./abis/FiatTokenV1.json
+          file: FiatTokenV1/abis/FiatTokenV1.json
       eventHandlers:
-        - event: Burn(address,uint256)
+        - event: 'Burn(address,uint256)'
           handler: handleBurn
-        - event: Mint(address,address,uint256)
+        - event: 'Mint(address,address,uint256)'
           handler: handleMint
-        - event: Transfer(address,address,uint256)
+        - event: 'Transfer(address,address,uint256)'
           handler: handleTransfer
-      file: ./src/mapping.ts
+      file: FiatTokenV1/FiatTokenV1.wasm
