@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "scripts": {
     "build-contract": "solc contracts/Gravity.sol --abi -o abis --overwrite && solc contracts/Gravity.sol --bin -o bin --overwrite",
-    "create": "graph create mpokrass/usdc-subgraph --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create mpokrass/usdc-subgraph --node http://127.0.0.1:8020",
+    "create": "graph create centrehq/usdc-subgraph --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create centrehq/usdc-subgraph --node http://127.0.0.1:8020",
     "codegen": "graph codegen --debug --output-dir src/types/",
     "build": "graph build --debug",
-    "deploy": "graph deploy mpokrass/usdc-subgraph --debug --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-local": "graph deploy mpokrass/usdc-subgraph --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+    "deploy": "graph deploy centrehq/usdc-subgraph --debug --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "deploy-local": "graph deploy centrehq/usdc-subgraph --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.7.1",
